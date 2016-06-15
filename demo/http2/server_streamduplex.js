@@ -1,4 +1,10 @@
-// 目前测试下来，一个浏览器一个页面，使用的socket connection都是一个。两个浏览器（chrome,edge)就各用个的。
+// 目前测试下来，一个浏览器一个页面,大量css资源，但是他们都会使用一个socket connection。两个浏览器（chrome,edge)就各用个的。
+// This fixes the “Head of Line” blocking that has plagued HTTP/1, 
+// as it means requests made on the same connection can now be responded to out of order. 
+// This not only lets the server make Quality of Service decision about what to return first, 
+// but it also means the client can now happily use a single TCP connection to make all their request
+
+// How? HTTP/2 uses multiplexing to allow many messages to be interleaved together on a connection at the same time, so that one large response (or one that takes a long time for the server to think about) doesn’t block others.
 var fs = require('fs');
 var h2 = require("http2")
 var path = require('path');
