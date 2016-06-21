@@ -1,0 +1,15 @@
+{
+  "name": "http2",
+  "version": "1.0.0",
+  "description": "##实验目的",
+  "main": "expresshttp2.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "hapi": "^13.4.1"
+  }
+}
