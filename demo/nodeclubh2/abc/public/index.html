@@ -269,16 +269,24 @@
            }
          })
          var url ="./img/88caadc211781b5ba82d07e435443213"
-         new Vue({
+         $.getJSON("/ajax/topics", function(result){
+           new Vue({
            el: '#topic_list',
            data: {
-             topics: [
-               { title: 'Learn JavaScript' ,replys : 1,visits:3,avatar:url},
-               { title: 'Learn Vue.js' ,replys : 2,visits:2,avatar:url},
-               { title: 'Build Something Awesome' ,replys : 3,visits:1,avatar:url}
-             ]
-           }
+             topics: result
+               }
+             }) 
          })
+         // new Vue({
+         //   el: '#topic_list',
+         //   data: {
+         //     topics: [
+         //       { title: 'Learn JavaScript' ,replys : 1,visits:3,avatar:url},
+         //       { title: 'Learn Vue.js' ,replys : 2,visits:2,avatar:url},
+         //       { title: 'Build Something Awesome' ,replys : 3,visits:1,avatar:url}
+         //     ]
+         //   }
+         // })
 
       </script>
    </body>
