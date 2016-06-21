@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<!-- saved from url=(0022)http://localhost:3000/ -->
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <!-- meta -->
+      <meta name="description" content="CNode：Node.js专业中文社区">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <meta name="keywords" content="nodejs, node, express, connect, socket.io">
+      <!-- see http://smerity.com/articles/2013/where_did_all_the_http_referrers_go.html -->
+      <meta name="referrer" content="always">
+      <meta name="author" content="EDP@TAOBAO">
+      <link title="RSS" type="application/rss+xml" rel="alternate" href="http://localhost:3000/rss">
+      <link rel="icon" href="http://localhost:3000/public/images/cnode_icon_32.png" type="image/x-icon">
+      <!-- style -->
+      <link rel="stylesheet" href="./ab_files/bootstrap.css" media="all">
+      <link rel="stylesheet" href="./ab_files/common.css" media="all">
+      <link rel="stylesheet" href="./ab_files/style.less" media="all">
+      <link rel="stylesheet" href="./ab_files/responsive.css" media="all">
+      <link rel="stylesheet" href="./ab_files/jquery.atwho.css" media="all">
+      <link rel="stylesheet" href="./ab_files/editor.css" media="all">
+      <link rel="stylesheet" href="./ab_files/webuploader.css" media="all">
+      <link rel="stylesheet" href="./ab_files/prettify.css" media="all">
+      <link rel="stylesheet" href="./ab_files/font-awesome.css" media="all">
+      <!-- scripts -->
+      <script src="./ab_files/jquery-2.1.0.js"></script>
+      <script src="./ab_files/lodash.compat.js"></script>
+      <script src="./ab_files/jquery-ujs.js"></script>
+      <script src="./ab_files/bootstrap.js"></script>
+      <script src="./ab_files/jquery.caret.js"></script>
+      <script src="./ab_files/jquery.atwho.js"></script>
+      <script src="./ab_files/markdownit.js"></script>
+      <script src="./ab_files/prettify.js"></script>
+      <script src="./ab_files/qrcode.js"></script>
+      <script src="./ab_files/main.js"></script>
+      <script src="./ab_files/responsive.js"></script>
+      <script src="./js/vue.js"></script>
+      <title>CNode：Node.js专业中文社区</title>
+      <meta content="_csrf" name="csrf-param">
+      <meta content="" name="csrf-token">
+   </head>
+   <body>
+      <!-- navbar -->
+      <div class="navbar">
+         <div class="navbar-inner">
+            <div class="container">
+               <a class="brand" href="http://localhost:3000/">
+               <img src="./ab_files/cnodejs_light.svg">
+               </a>
+               <form id="search_form" class="navbar-search" action="http://localhost:3000/search">
+                  <input type="text" id="q" name="q" class="search-query span3" value="">
+               </form>
+               <ul class="nav pull-right">
+                  <li><a href="http://localhost:3000/">首页</a></li>
+                  <li>
+                     <a href="http://localhost:3000/my/messages">
+                     未读消息
+                     </a>
+                  </li>
+                  <li><a href="http://localhost:3000/getstart">新手入门</a></li>
+                  <li><a href="http://localhost:3000/api">API</a></li>
+                  <li><a href="http://localhost:3000/about" target="">关于</a></li>
+                  <li><a href="http://localhost:3000/setting">设置</a></li>
+                  <li>
+                     <a href="http://localhost:3000/signout" data-method="post" rel="nofollow">退出</a>
+                  </li>
+               </ul>
+               <a class="btn btn-navbar" id="responsive-sidebar-trigger">
+               <span class="icon-bar"></span>
+               <span class="icon-bar"></span>
+               <span class="icon-bar"></span>
+               </a>
+            </div>
+         </div>
+      </div>
+      <div id="main">
+         <div id="sidebar">
+            <div class="panel">
+               <div class="header">
+                  <span class="col_fade">个人信息</span>
+               </div>
+               <div class="inner">
+                  <div class="user_card">
+                     <div>
+                        <a class="user_avatar" href="http://localhost:3000/user/abcde">
+                        <img src="./ab_files/88caadc211781b5ba82d07e435443213" title="abcde">
+                        </a>
+                        <span class="user_name"><a class="dark" href="http://localhost:3000/user/abcde">abcde</a></span>
+                        <div class="board clearfix">
+                           <div class="floor">
+                              <span class="big">积分: 20 </span>
+                           </div>
+                        </div>
+                        <div class="space clearfix"></div>
+                        <span class="signature">
+                        “
+                        这家伙很懒，什么个性签名都没有留下。
+                        ”
+                        </span>
+                     </div>
+                  </div>
+                  <script>
+                     $(document).ready(function () {
+                       $('.follow_btn').click(function () {
+                         var $me = $(this);
+                         var action = $me.attr('action');
+                         var params = {
+                           follow_id: '57678f9bc664f657c24ec273',
+                           _csrf: ''
+                         };
+                         $.post('/user/' + action, params, function (data) {
+                           if (data.status === 'success') {
+                             var $btns = $('.follow_btn');
+                             if (action === 'follow') {
+                               $btns.html('取消关注');
+                               $btns.attr('action', 'un_follow');
+                             } else {
+                               $btns.html('加入关注');
+                               $btns.attr('action', 'follow');
+                             }
+                             $btns.toggleClass('btn-success');
+                           }
+                         }, 'json');
+                       });
+                     });
+                  </script>
+               </div>
+            </div>
+            <div class="panel">
+               <div class="inner">
+                  <a href="http://localhost:3000/topic/create" id="create_topic_btn">
+                  <span class="span-success">发布话题</span>
+                  </a>
+               </div>
+            </div>
+            <div class="panel">
+               <div class="header">
+                  <span class="col_fade">无人回复的话题</span>
+               </div>
+               <div class="inner">
+                  <ul class="unstyled">
+                     <li>
+                        <div><a class="dark topic_title" href="http://localhost:3000/topic/5768b088bc4f68d6d3753fc8" title="333333333">333333333</a>
+                        </div>
+                     </li>
+                  </ul>
+               </div>
+            </div>
+            <div class="panel">
+               <div class="header">
+                  <span class="col_fade">积分榜</span>
+                  &nbsp;
+                  <a class="dark" href="http://localhost:3000/users/top100">TOP 100 &gt;&gt;</a>
+               </div>
+               <div class="inner">
+                  <ol>
+                     <li>
+                        <span class="top_score">20</span>
+                        <span class="user_name"><a href="http://localhost:3000/user/abcde">abcde</a></span>
+                     </li>
+                  </ol>
+               </div>
+            </div>
+            <div class="panel">
+               <div class="header">
+                  <span class="col_fade">友情社区</span>
+               </div>
+               <div class="inner">
+                  <ol class="friendship-community">
+                     <li>
+                        <a href="http://phphub.org/" target="_blank">
+                        <img src="./ab_files/phphub-logo.png">
+                        </a>
+                     </li>
+                  </ol>
+               </div>
+            </div>
+            <div class="panel">
+               <div class="header">
+                  <span class="col_fade">客户端二维码</span>
+               </div>
+            </div>
+         </div>
+         <div id="content">
+            <div class="panel">
+               <div class="header">
+                  <a href="http://localhost:3000/?tab=all" class="topic-tab current-tab">全部</a>
+                  <a href="http://localhost:3000/?tab=good" class="topic-tab ">精华</a>
+                  <a href="http://localhost:3000/?tab=share" class="topic-tab ">分享</a>
+                  <a href="http://localhost:3000/?tab=ask" class="topic-tab ">问答</a>
+                  <a href="http://localhost:3000/?tab=job" class="topic-tab ">招聘</a>
+               </div>
+               <div class="inner no-padding">
+                  <div id="topic_list">
+                     <div class="cell" v-for="topic in topics">
+                        <a class="user_avatar pull-left" href="http://localhost:3000/user/abcde">
+                        <img src="{{topic.avatar}}" title="abcde">
+                        </a>
+                        <span class="reply_count pull-left">
+                        <span class="count_of_replies" title="回复数">
+                        {{topic.replys}}
+                        </span>
+                        <span class="count_seperator">/</span>
+                        <span class="count_of_visits" title="点击数">
+                        {{topic.visits}}
+                        </span>
+                        </span>
+                        <span class="last_time pull-right">
+                        <span class="last_active_time">1 小时前</span>
+                        </span>
+                        <div class="topic_title_wrapper">
+                           <span class="topiclist-tab">分享</span>
+                           <a class="topic_title" href="http://localhost:3000/topic/5768b088bc4f68d6d3753fc8" title="333333333">
+                           {{topic.title}}
+                           </a>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="pagination" current_page="1">
+                     <ul>
+                        <li class="disabled"><a>«</a></li>
+                        <li class="disabled active"><a>1</a></li>
+                        <li class="disabled"><a>»</a></li>
+                     </ul>
+                  </div>
+                  <script>
+                     $(document).ready(function () {
+                       var $nav = $('.pagination');
+                       var current_page = $nav.attr('current_page');
+                       if (current_page) {
+                         $nav.find('li').each(function () {
+                           var $li = $(this);
+                           var $a = $li.find('a');
+                           if ($a.html() == current_page) {
+                             $li.addClass('active');
+                             $a.removeAttr('href');
+                           }
+                         });
+                       }
+                     });
+                  </script>
+               </div>
+            </div>
+         </div>
+      </div>
+      <div id="backtotop" style="display: none; top: 50px; right: 0px;">回到顶部</div>
+      <div id="footer">
+         <div id="footer_main">
+            <div class="links">
+               <a class="dark" href="http://localhost:3000/rss">RSS</a>
+               |
+               <a class="dark" href="https://github.com/cnodejs/nodeclub/">源码地址</a>
+            </div>
+            <div class="col_fade">
+               <p>CNode 社区为国内最专业的 Node.js 开源技术社区，致力于 Node.js 的技术研究。</p>
+            </div>
+         </div>
+      </div>
+      <div id="sidebar-mask"></div>
+      <div id="demo">
+         <p>{{message}}</p>
+         <input v-model="message">
+      </div>
+      <script >
+         var demo = new Vue({
+           el: '#demo',
+           data: {
+             message: 'Hello Vue.js!'
+           }
+         })
+         var url ="./ab_files/88caadc211781b5ba82d07e435443213"
+         new Vue({
+           el: '#topic_list',
+           data: {
+             topics: [
+               { title: 'Learn JavaScript' ,replys : 1,visits:3,avatar:url},
+               { title: 'Learn Vue.js' ,replys : 2,visits:2,avatar:url},
+               { title: 'Build Something Awesome' ,replys : 3,visits:1,avatar:url}
+             ]
+           }
+         })
+
+      </script>
+   </body>
+</html>
