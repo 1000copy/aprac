@@ -29,6 +29,31 @@ server.route({
 });
 server.route({
     method: 'GET',
+    path: '/ajax/1',
+    handler: function (request, reply) {
+        a(function(err,topics){
+            if (!err)
+                reply(topics);    
+            else
+                reply(err)
+        })
+        
+        
+    }
+});
+// cb (err,topics)
+function a (cb){
+    var url ="./img/88caadc211781b5ba82d07e435443213"
+    var a = [
+               { title: 'Learn JavaScript' ,replys : 1111,visits:3,avatar:url},
+             ] 
+    var Topic = require("./node/proxy/topic")
+    var query  ={} //all
+    var options = { skip: 0, limit: 10, sort: '-top -last_reply_at'};
+    Topic.getTopicsByQuery(query, options, cb);
+}
+server.route({
+    method: 'GET',
     path: '/{param*}',
     handler: {
         directory: {
