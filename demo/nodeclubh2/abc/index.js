@@ -1,17 +1,34 @@
-const Path = require('path');
-const Hapi = require('hapi');
+
+'use strict'
+const fs = require('fs')
+const Hapi = require('hapi')
+const Http2 = require('http2')
+var path = require('path');
+
+let listener = Http2.createServer({
+ key: fs.readFileSync(path.resolve(__dirname, './localhost.key')),
+        cert: fs.readFileSync(path.resolve(__dirname, './localhost.crt'))
+})
+
+if (!listener.address) {
+  listener.address = function() {
+    return this._server.address()
+  }
+}
+
+
 const Inert = require('inert');
 
 const server = new Hapi.Server({
     connections: {
         routes: {
             files: {
-                relativeTo: Path.join(__dirname, 'public')
+                relativeTo: path.join(__dirname, 'public')
             }
         }
     }
 });
-server.connection({ port: 3000 });
+server.connection({ listener:listener,port: 3000 });
 
 server.register(Inert, () => {});
 
