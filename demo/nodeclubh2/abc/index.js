@@ -37,11 +37,14 @@ server.route({
     path: '/ajax/topics',
     handler: function (request, reply) {
         var url ="./img/88caadc211781b5ba82d07e435443213"
-        reply([
-               { title: 'Learn JavaScript' ,replys : 1111,visits:3,avatar:url},
-               { title: 'Learn Vue.js' ,replys : 2,visits:2,avatar:url},
-               { title: 'Build Something Awesome' ,replys : 3,visits:1,avatar:url}
-             ]);
+        a(function(err,topics){
+            if (!err){
+              
+              reply(topics);    
+            }
+            else
+                reply(err)
+        })
     }
 });
 server.route({
@@ -65,9 +68,47 @@ function a (cb){
                { title: 'Learn JavaScript' ,replys : 1111,visits:3,avatar:url},
              ] 
     var Topic = require("./node/proxy/topic")
+    var User = require("./node/proxy/user")
     var query  ={} //all
     var options = { skip: 0, limit: 10, sort: '-top -last_reply_at'};
-    Topic.getTopicsByQuery(query, options, cb);
+    Topic.getTopicsByQuery(query, options, function(err,topics){
+        if (err == null){
+          var _          = require('lodash');
+          topics = topics.map(function (topic) {
+            return _.pick(topic, ['id', 'tab', 'title', 'reply_count', 'visit_count', 'create_at','author_id']);
+          });
+            var EventProxy = require("eventproxy")
+            var ep = new EventProxy();
+            ep.after('got_avatar', topics.length, function (list) {
+                console.log(topics)
+                cb(null,topics)
+            });
+            for (var i = 0; i < topics.length; i++) {
+                var topic = topics[i]
+                User.getUserById(topic.author_id,function(err,user){
+                    // console.log(err,user,topic.author_id)
+                    if(err == null){
+                         topic.avatar = User.getGravatar(user)
+                         ep.emit('got_avatar', topic);
+                    }
+                })
+            }
+          // topics = topics.map(function (topic) {
+
+          //   User.getUserById(topic.author_id,function(err,user){
+          //       // console.log(err,user,topic.author_id)
+          //       if(err == null){
+          //           topic.avatar = User.getGravatar(user)
+          //           return topic
+          //       }
+          //   })
+          // });
+          // console.log(topics)
+          
+        }else
+          cb(err)
+
+    });
 }
 server.route({
     method: 'GET',

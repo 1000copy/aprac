@@ -114,5 +114,6 @@ var makeGravatar = function (email) {
 exports.makeGravatar = makeGravatar;
 
 exports.getGravatar = function (user) {
-  return user.avatar || makeGravatar(user);
+  var a = user.avatar || makeGravatar(user);
+  return  a.replace("www.","")
 };
