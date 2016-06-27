@@ -1,0 +1,47 @@
+<html>
+<head>
+<style type="text/css">
+    .v-link-active {
+        color: red;
+    }
+</style>
+<script type="text/javascript" src="vue.js"></script>
+<script type="text/javascript" src="vue-router.js"></script>
+
+</head>
+<body>
+    <div id="app">
+      <h1>Hello App!</h1>
+      <p>
+        <a v-link="{ path: '/foo' }">Go to Foo</a>
+        <a v-link="{ path: '/bar' }">Go to Bar</a>
+      </p>
+      <router-view></router-view>
+    </div>
+    <script type="text/javascript">
+
+    function a(){
+        console.log("abcd")
+        var Foo = Vue.extend({
+            template: '<p>This is foo!</p>'
+        })
+
+        var Bar = Vue.extend({
+            template: '<p>This is bar!</p>'
+        })
+        var App = Vue.extend({})
+        var router = new VueRouter()
+        router.map({
+            '/foo': {
+                component: Foo
+            },
+            '/bar': {
+                component: Bar
+            }
+        })
+        router.start(App, '#app')
+    }
+    a()
+</script>
+</body>
+</<html>
