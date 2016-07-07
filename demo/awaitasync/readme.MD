@@ -133,6 +133,8 @@ http://stackoverflow.com/questions/33527653/babel-6-regeneratorruntime-is-not-de
 
 # by polyfill
 
+http://think2011.net/2015/11/09/ES7-Async-Await/
+
 ### demo code
   echo "
   var sleep = function (time) {
@@ -160,7 +162,7 @@ http://stackoverflow.com/questions/33527653/babel-6-regeneratorruntime-is-not-de
 
 ## package.json
  
- echo "{
+ echo '{
   "name": "ES7-Async-Await-Demo",
   "version": "1.0.0",
   "description": "",
@@ -182,7 +184,7 @@ http://stackoverflow.com/questions/33527653/babel-6-regeneratorruntime-is-not-de
     "babel-preset-stage-0": "^6.1.2"
   }
 }
-"> package.json
+'> package.json
 
 
 ## .babelrc
