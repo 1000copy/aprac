@@ -1,3 +1,7 @@
+visit url for introduction 
+
+https://scotch.io/tutorials/build-a-single-page-time-tracking-app-with-vue-js-part-ii
+
 # timetrack
 
 > A Vue.js project
